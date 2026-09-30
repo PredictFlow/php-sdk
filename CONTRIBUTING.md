@@ -45,6 +45,19 @@ All three should be clean before you open a PR - CI runs them on PHP 8.1 through
 6. Commit messages: a plain, present-tense description of what changed and why is enough. No enforced format.
 7. Open the PR against `main` and fill in the template.
 
+## Versioning & breaking changes
+
+This package follows [Semantic Versioning](https://semver.org/), with the usual pre-1.0 caveat: anything in a `0.x` release can technically break between minor versions, but we still treat it like a real breaking-change bump (`0.1.x` → `0.2.0`), not a patch, once it's past initial development. Concretely, a **breaking change** is any of:
+
+- Removing or renaming a public class, method, or exception.
+- Changing a method's required parameters, or changing what an existing parameter means.
+- Changing a response's array shape in a way that breaks a reasonable consumer (removing a key, changing a value's type) - adding a new key is not breaking.
+- Changing default behavior a consumer could reasonably have been relying on (e.g. which HTTP methods retry by default).
+
+Not breaking: internal refactors, dependency bumps, new resource methods, new optional parameters, README/example changes, adding a new exception subclass (as long as it still extends `PredictFlowException`, existing `catch` blocks keep working).
+
+Every release gets a [CHANGELOG.md](CHANGELOG.md) entry - see the existing entry for the format. If your PR is user-facing, mention what changed under `## [Unreleased]` (add that heading at the top of the file if it doesn't exist yet) rather than leaving the changelog for the maintainer to reconstruct from commit messages at release time. Remember Packagist's version comes from the git tag, not from anything in `composer.json` (see "Releasing" below) - the changelog is the one place the human-readable version history actually lives.
+
 ## Review & merge
 
 PRs require passing CI and a code owner review before merging - `main` is protected, so nobody merges without going through this, maintainers included.

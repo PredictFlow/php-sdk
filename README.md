@@ -108,6 +108,10 @@ Every resource method also accepts a per-call `maxRetries` where relevant - e.g.
 
 `GET`/`PUT`/`DELETE` retry automatically on `429`/5xx and transport-level failures, with backoff. `POST`/`PATCH` don't, by default - they aren't guaranteed idempotent, and retrying one whose response was lost after the server already processed it (a sync trigger, a CSV import, a forecast run) risks duplicate side effects. Pass `maxRetries` explicitly on a specific call if you know it's safe.
 
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md).
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md).
